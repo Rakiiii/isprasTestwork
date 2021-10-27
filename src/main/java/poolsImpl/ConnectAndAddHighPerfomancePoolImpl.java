@@ -11,7 +11,8 @@ import java.util.Set;
  *
  *  Фактически вся задача сводится к разрыву рекурсии при балансировке сети бассейнов,
  *  применяется подход, при котором балансировкой воды фактически занимается 1 master бассейн,
- *  такой подхход позволяет сократить вычислительные издержки при {@code measure()} и {@code add(...)}
+ *  с точки зрения внутреннего представления сеть бассейнов имеет топологию типа звезда,
+ *  такой подход позволяет сократить вычислительные издержки при {@code measure()} и {@code add(...)}
  *
  *  для сокращения вычислительных издержек метода {@code connect} допустим вариант рекурсивного {@code measure()}
  *  когда сеть является графом общего вида, рвать рекрсию при такой имплементации можно было бы при помощи флагов
@@ -50,6 +51,7 @@ public class ConnectAndAddHighPerfomancePoolImpl implements IPool {
      */
     @Override
     public void connect(IPool pool) {
+
         if (pool == this) return;
         if(pool == masterPool)return;
         if (connectedPools.contains(pool)) return;
@@ -59,6 +61,16 @@ public class ConnectAndAddHighPerfomancePoolImpl implements IPool {
             return;
         }
 
+        realConnect(pool);
+    }
+
+    /**
+     * Метод вызываемый если все проверки корректности сединения бассейнов пройдены
+     *
+     * @param pool бассейн для присоедениениея
+     */
+    private void realConnect(IPool pool) {
+
         final boolean isConnected =
                 //елси пользователь вызвал присоедение с master бассейном то это true
                 pool.isConnected(this) ||
@@ -67,31 +79,14 @@ public class ConnectAndAddHighPerfomancePoolImpl implements IPool {
 
         if(masterPool == null && !isConnected && !isInDomination) {
             //секция 1: вызывается при добавлении новой сети пользователем
-            isInDomination = true;
-            final long newMeshMeasure = pool.measure();
-            final long oldSize = connectedPools.size();
-
-            connectedPools.add(pool);
-            pool.connect(this);
-
-            final long sizeDif = connectedPools.size() - oldSize;
-
-             amountOfWater = calculateNewAmount(sizeDif,oldSize,newMeshMeasure);
-
-            isInDomination = false;
+            newMasterPoolConnect(pool);
         } else if (masterPool == null && !isInDomination) {
             //секция 2:вызываемая для старого master бассейна в сети
             //по факту происходит пересоединения всех старых листов к новому центру
-            masterPool = pool;
-
-            connectedPools.forEach(pool::connect);
-
-            connectedPools.clear();
-            amountOfWater = 0;
+            oldMasterPoolConnect(pool);
         } else if (masterPool == null){
             //секция 3: вызываемая когда пытаемся добавить новый лист от старого master бассейна
-            connectedPools.add(pool);
-            pool.connect(this);
+            listToNewMasterPool(pool);
         } else if(isConnected && !masterPool.isConnected(pool)) {
             //секуция 4: вызывается если в секции 1 был не master бассейн
             //просто переадресует вызов в секцию 2 для старого master бассейна
@@ -99,6 +94,54 @@ public class ConnectAndAddHighPerfomancePoolImpl implements IPool {
         }else{
             masterPool = pool;
         }
+    }
+
+    /**
+     * Метод вызываемый для присоединения старой сети бассейнов к новой, вызывается только на новом master бассейне
+     *
+     * @param pool бассейн для присоедениениея
+     */
+    private void newMasterPoolConnect(IPool pool) {
+
+        isInDomination = true;
+        final long newMeshMeasure = pool.measure();
+        final long oldSize = connectedPools.size();
+
+        connectedPools.add(pool);
+        pool.connect(this);
+
+        final long sizeDif = connectedPools.size() - oldSize;
+
+        amountOfWater = calculateNewAmount(sizeDif,oldSize,newMeshMeasure);
+
+        isInDomination = false;
+    }
+
+    /**
+     * Метод вызываемый для переприсоединения старых вершин звезды к новому master бассейну
+     * {@code this} всегда старый master бассейн
+     *
+     * @param pool бассейн для присоедениениея, новый master бассейн
+     */
+    private void oldMasterPoolConnect(IPool pool) {
+
+        masterPool = pool;
+
+        connectedPools.forEach(pool::connect);
+
+        connectedPools.clear();
+        amountOfWater = 0;
+    }
+
+    /**
+     * Метод добавления новой вершины звезды от старого master бассейна
+     *
+     * @param pool новой вершина звезды от старого master бассейна
+     */
+    private void listToNewMasterPool(IPool pool) {
+
+        connectedPools.add(pool);
+        pool.connect(this);
     }
 
     /**
@@ -111,10 +154,15 @@ public class ConnectAndAddHighPerfomancePoolImpl implements IPool {
      * @return возвращает новый объем воды для сети
      */
     private long calculateNewAmount(long sizeDiff,long oldSize, long newMeasure) {
+
         final long meshSize = connectedPools.size()+1;
+
         try {
+
             return Math.addExact(Math.multiplyExact(amountOfWater,oldSize+1),  Math.multiplyExact(newMeasure,sizeDiff))/meshSize;
+
         } catch (ArithmeticException exception) {
+
             //если лонги перепонились то только BigInt
             BigInteger amountOfWaterBI = new BigInteger(String.valueOf(amountOfWater));
             BigInteger newMeasureBI = new BigInteger(String.valueOf(newMeasure));
@@ -140,7 +188,9 @@ public class ConnectAndAddHighPerfomancePoolImpl implements IPool {
      */
     @Override
     public void add(long water) {
+
         if (water == 0) return;
+
         if (masterPool != null) {
             masterPool.add(water);
         } else {
