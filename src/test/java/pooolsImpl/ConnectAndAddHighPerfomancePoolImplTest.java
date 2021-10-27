@@ -2,16 +2,16 @@ package pooolsImpl;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import poolsImpl.MeasureHighPerformancePoolImpl;
+import poolsImpl.ConnectAndAddHighPerfomancePoolImpl;
 
 /**
- * Тест для {@code MeasureHighPerformancePoolImplTest}
+ * Тест для {@code ConnectAndAddHighPerfomancePoolImpl}
  */
-public final class MeasureHighPerformancePoolImplTest {
+public class ConnectAndAddHighPerfomancePoolImplTest {
 
     @Test
     public void verifyAddEmptyMesh() {
-        MeasureHighPerformancePoolImpl pool = new MeasureHighPerformancePoolImpl();
+        ConnectAndAddHighPerfomancePoolImpl pool = new ConnectAndAddHighPerfomancePoolImpl();
 
         Assertions.assertEquals(EMPTY, pool.measure());
 
@@ -22,7 +22,7 @@ public final class MeasureHighPerformancePoolImplTest {
 
     @Test
     public void verifyConnectThisToThis() {
-        MeasureHighPerformancePoolImpl pool = new MeasureHighPerformancePoolImpl();
+        ConnectAndAddHighPerfomancePoolImpl pool = new ConnectAndAddHighPerfomancePoolImpl();
 
         Assertions.assertEquals(NOT_CONNECTED, pool.isConnected(pool));
 
@@ -34,8 +34,8 @@ public final class MeasureHighPerformancePoolImplTest {
 
     @Test
     public void verifyConnectTwoEmptyPools() {
-        MeasureHighPerformancePoolImpl poolFirst = new MeasureHighPerformancePoolImpl();
-        MeasureHighPerformancePoolImpl poolSecond = new MeasureHighPerformancePoolImpl();
+        ConnectAndAddHighPerfomancePoolImpl poolFirst = new ConnectAndAddHighPerfomancePoolImpl();
+        ConnectAndAddHighPerfomancePoolImpl poolSecond = new ConnectAndAddHighPerfomancePoolImpl();
 
         Assertions.assertEquals(NOT_CONNECTED, poolFirst.isConnected(poolSecond));
 
@@ -46,8 +46,8 @@ public final class MeasureHighPerformancePoolImplTest {
 
     @Test
     public void verifyConnectTwoPoolsEqualsWater() {
-        MeasureHighPerformancePoolImpl poolFirst = new MeasureHighPerformancePoolImpl();
-        MeasureHighPerformancePoolImpl poolSecond = new MeasureHighPerformancePoolImpl();
+        ConnectAndAddHighPerfomancePoolImpl poolFirst = new ConnectAndAddHighPerfomancePoolImpl();
+        ConnectAndAddHighPerfomancePoolImpl poolSecond = new ConnectAndAddHighPerfomancePoolImpl();
 
         poolFirst.add(EXTRA_WATER);
         poolSecond.add(EXTRA_WATER);
@@ -63,8 +63,8 @@ public final class MeasureHighPerformancePoolImplTest {
 
     @Test
     public void verifyAddToMesh() {
-        MeasureHighPerformancePoolImpl poolFirst = new MeasureHighPerformancePoolImpl();
-        MeasureHighPerformancePoolImpl poolSecond = new MeasureHighPerformancePoolImpl();
+        ConnectAndAddHighPerfomancePoolImpl poolFirst = new ConnectAndAddHighPerfomancePoolImpl();
+        ConnectAndAddHighPerfomancePoolImpl poolSecond = new ConnectAndAddHighPerfomancePoolImpl();
 
         poolFirst.add(EXTRA_WATER);
         poolSecond.add(EXTRA_WATER);
@@ -85,8 +85,8 @@ public final class MeasureHighPerformancePoolImplTest {
 
     @Test
     public void verifyConnectTwoPools() {
-        MeasureHighPerformancePoolImpl poolFirst = new MeasureHighPerformancePoolImpl();
-        MeasureHighPerformancePoolImpl poolSecond = new MeasureHighPerformancePoolImpl();
+        ConnectAndAddHighPerfomancePoolImpl poolFirst = new ConnectAndAddHighPerfomancePoolImpl();
+        ConnectAndAddHighPerfomancePoolImpl poolSecond = new ConnectAndAddHighPerfomancePoolImpl();
 
         poolFirst.add(EXTRA_WATER);
         poolSecond.add(EXTRA_WATER_DOUBLED);
@@ -107,9 +107,9 @@ public final class MeasureHighPerformancePoolImplTest {
 
     @Test
     public void verifyConnectPoolToPoolMesh() {
-        MeasureHighPerformancePoolImpl poolFirst = new MeasureHighPerformancePoolImpl();
-        MeasureHighPerformancePoolImpl poolSecond = new MeasureHighPerformancePoolImpl();
-        MeasureHighPerformancePoolImpl poolThird = new MeasureHighPerformancePoolImpl();
+        ConnectAndAddHighPerfomancePoolImpl poolFirst = new ConnectAndAddHighPerfomancePoolImpl();
+        ConnectAndAddHighPerfomancePoolImpl poolSecond = new ConnectAndAddHighPerfomancePoolImpl();
+        ConnectAndAddHighPerfomancePoolImpl poolThird = new ConnectAndAddHighPerfomancePoolImpl();
 
         poolFirst.add(EXTRA_WATER);
         poolSecond.add(EXTRA_WATER_DOUBLED);
@@ -140,9 +140,9 @@ public final class MeasureHighPerformancePoolImplTest {
 
     @Test
     public void verifyConnectPoolMeshToPool() {
-        MeasureHighPerformancePoolImpl poolFirst = new MeasureHighPerformancePoolImpl();
-        MeasureHighPerformancePoolImpl poolSecond = new MeasureHighPerformancePoolImpl();
-        MeasureHighPerformancePoolImpl poolThird = new MeasureHighPerformancePoolImpl();
+        ConnectAndAddHighPerfomancePoolImpl poolFirst = new ConnectAndAddHighPerfomancePoolImpl();
+        ConnectAndAddHighPerfomancePoolImpl poolSecond = new ConnectAndAddHighPerfomancePoolImpl();
+        ConnectAndAddHighPerfomancePoolImpl poolThird = new ConnectAndAddHighPerfomancePoolImpl();
 
         poolFirst.add(EXTRA_WATER);
         poolSecond.add(EXTRA_WATER_DOUBLED);
@@ -173,10 +173,10 @@ public final class MeasureHighPerformancePoolImplTest {
 
     @Test
     public void verifyConnectPoolMeshToPoolMesh() {
-        MeasureHighPerformancePoolImpl poolFirst = new MeasureHighPerformancePoolImpl();
-        MeasureHighPerformancePoolImpl poolSecond = new MeasureHighPerformancePoolImpl();
-        MeasureHighPerformancePoolImpl poolThird = new MeasureHighPerformancePoolImpl();
-        MeasureHighPerformancePoolImpl poolFourth = new MeasureHighPerformancePoolImpl();
+        ConnectAndAddHighPerfomancePoolImpl poolFirst = new ConnectAndAddHighPerfomancePoolImpl();
+        ConnectAndAddHighPerfomancePoolImpl poolSecond = new ConnectAndAddHighPerfomancePoolImpl();
+        ConnectAndAddHighPerfomancePoolImpl poolThird = new ConnectAndAddHighPerfomancePoolImpl();
+        ConnectAndAddHighPerfomancePoolImpl poolFourth = new ConnectAndAddHighPerfomancePoolImpl();
 
         poolFirst.add(EXTRA_WATER);
         poolSecond.add(EXTRA_WATER_DOUBLED);
@@ -201,7 +201,7 @@ public final class MeasureHighPerformancePoolImplTest {
         Assertions.assertEquals(CONNECTED, poolFourth.isConnected(poolThird));
 
         final long expected = (EXTRA_WATER + EXTRA_WATER_DOUBLED + EXTRA_WATER + EXTRA_WATER_DOUBLED) / 4;
-        Assertions.assertEquals(expected, poolFirst.measure());
+        Assertions. assertEquals(expected, poolFirst.measure());
         Assertions.assertEquals(expected, poolSecond.measure());
         Assertions.assertEquals(expected, poolThird.measure());
         Assertions.assertEquals(expected, poolFourth.measure());
@@ -213,4 +213,5 @@ public final class MeasureHighPerformancePoolImplTest {
     private static final long EXTRA_WATER = 10;
     private static final long EXTRA_WATER_PLUS = 12;
     private static final long EXTRA_WATER_DOUBLED = 20;
+
 }

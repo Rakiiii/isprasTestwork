@@ -17,7 +17,7 @@ import java.util.Set;
  *  фактически с точки зрения внутренего представления, сеть бассейнов рассматривается как полный граф,
  *  где {@code connectedSet} есть множество вершин графа
  */
-public final class MeasureHighPerformancePoolImpl implements IPool {
+public final class FullGraphPoolImpl implements IPool {
 
     /** Сеть объедененных каналми бассейнов */
     private final Set<IPool> connectedPools = new HashSet<>();

@@ -73,8 +73,7 @@ public final class CaseClass {
 
         for(int i=0;i<M1;++i) {
             for (IPool cur : pools) {
-                long measure = cur.measure();
-                System.out.println(measure);
+                cur.measure();
             }
         }
 

@@ -9,7 +9,7 @@ public class Main {
         CaseClass caseImpl = new CaseClass();
 
         caseImpl.harcodeDebug(poolFactory);
-        caseImpl.caseImpl(poolFactory,4,5,2,2,2);
+        caseImpl.caseImpl(poolFactory,10_000_000,5_000_000,50_000_000,2,3);
 
         System.exit(0);
     }

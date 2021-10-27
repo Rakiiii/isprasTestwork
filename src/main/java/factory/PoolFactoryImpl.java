@@ -2,7 +2,7 @@ package factory;
 
 import interfaces.IPool;
 import interfaces.IPoolFactory;
-import poolsImpl.MeasureHighPerformancePoolImpl;
+import poolsImpl.ConnectAndAddHighPerfomancePoolImpl;
 
 /**
  * Базовая имплементация {@code IPoolFactory}
@@ -15,6 +15,6 @@ public class PoolFactoryImpl implements IPoolFactory {
      */
     @Override
     public IPool create() {
-        return new MeasureHighPerformancePoolImpl();
+        return new ConnectAndAddHighPerfomancePoolImpl();
     }
 }

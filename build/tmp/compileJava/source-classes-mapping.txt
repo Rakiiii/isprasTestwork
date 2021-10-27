@@ -6,7 +6,9 @@ cases/CaseClass.java
  cases.CaseClass
 Main.java
  Main
-factory/PoolFactoryImpl.java
- factory.PoolFactoryImpl
 poolsImpl/MeasureHighPerformancePoolImpl.java
  poolsImpl.MeasureHighPerformancePoolImpl
+poolsImpl/ConnectAndAddHighPerfomancePoolImpl.java
+ poolsImpl.ConnectAndAddHighPerfomancePoolImpl
+factory/PoolFactoryImpl.java
+ factory.PoolFactoryImpl
