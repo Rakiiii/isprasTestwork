@@ -12,6 +12,7 @@ public class Main {
         //PoolFactory factory = PoolSimple::new;
 //        IPoolFactory factory = InversedMasterPoolImpl::new;
         IPoolFactory factory = GlobalStatePoolImpl::new;
+//        IPoolFactory factory = TypeCastWayPoolImpl::new;
 //        IPoolFactory factory = ConnectAndAddHighPerfomancePoolImpl::new;
         //PoolFactory factory = FullGraphPoolImpl::new;
 
