@@ -1,7 +1,6 @@
 import interfaces.IPool;
 import interfaces.IPoolFactory;
 import poolsImpl.GlobalStatePoolImpl;
-import poolsImpl.TypeCastWayPoolImpl;
 
 import java.util.ArrayList;
 import java.util.List;

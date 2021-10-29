@@ -14,10 +14,6 @@ public final class PoolsOrchestrator {
      * Мапа бассейнов к бакетам с водой
      */
     private final WeakHashMap<IPool, PoolBucket> poolMap = new WeakHashMap<>();
-    /**
-     * Мапа бакетов к списку присоедененных бассейнов
-     */
-    private final WeakHashMap<PoolBucket, LinkedList<WeakReference<IPool>>> bucketMap = new WeakHashMap<>();
 
     /**
      * Соеденить две сети бассейнов
@@ -50,10 +46,8 @@ public final class PoolsOrchestrator {
 
     private void addNewPool(IPool pool) {
         PoolBucket poolBucket = new PoolBucket(pool.measure());
+        poolBucket.addPool(pool);
         poolMap.put(pool, poolBucket);
-        LinkedList<WeakReference<IPool>> poolList = new LinkedList<>();
-        poolList.add(new WeakReference<>(pool));
-        bucketMap.put(poolBucket, poolList);
     }
 
     /**
@@ -62,19 +56,17 @@ public final class PoolsOrchestrator {
     private void addTwoNewPools(IPool poolFirst, IPool poolSecond) {
         PoolBucket poolBucket = new PoolBucket(poolFirst.measure());
         poolBucket.addWaterWithPool(poolSecond.measure());
+        poolBucket.addPool(poolFirst);
+        poolBucket.addPool(poolSecond);
         poolMap.put(poolFirst, poolBucket);
         poolMap.put(poolSecond, poolBucket);
-        LinkedList<WeakReference<IPool>> poolList = new LinkedList<>();
-        poolList.add(new WeakReference<>(poolFirst));
-        poolList.add(new WeakReference<>(poolSecond));
-        bucketMap.put(poolBucket, poolList);
     }
 
     /**
      * Присоединение нового бассейна к сети
      */
     private void addNewPoolToOld(IPool newPool, PoolBucket oldBucket) {
-        bucketMap.get(oldBucket).add(new WeakReference<>(newPool));
+        oldBucket.addPool(newPool);
         poolMap.put(newPool, oldBucket);
         oldBucket.addWaterWithPool(newPool.measure());
     }
@@ -83,8 +75,8 @@ public final class PoolsOrchestrator {
      * Соединение 2 сетей бассейнов
      */
     private void mergeOldPools(PoolBucket firstBucket, PoolBucket secondBucket) {
-        final LinkedList<WeakReference<IPool>> secondBucketArray = bucketMap.get(secondBucket);
-        final LinkedList<WeakReference<IPool>> firstBucketArray = bucketMap.get(firstBucket);
+        final LinkedList<WeakReference<IPool>> secondBucketArray = secondBucket.getPoolList();
+        final LinkedList<WeakReference<IPool>> firstBucketArray = firstBucket.getPoolList();
 
         if (secondBucketArray.size() > firstBucketArray.size()) {
             optimizedMergePool(firstBucket, secondBucket, firstBucketArray, secondBucketArray);
@@ -115,7 +107,6 @@ public final class PoolsOrchestrator {
             if (poolRef != null) poolMap.put(poolRef, biggerBucket);
         }
 
-        bucketMap.remove(smallerBucket);
         smallerArray.clear();
     }
 

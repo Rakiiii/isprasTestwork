@@ -12,13 +12,13 @@ factory/PoolFactoryImpl.java
  factory.PoolFactoryImpl
 poolsImpl/InversedMasterPoolImpl.java
  poolsImpl.InversedMasterPoolImpl
-utils/PoolBucket.java
- utils.PoolBucket
-utils/PoolsOrchestrator.java
- utils.PoolsOrchestrator
 poolsImpl/TypeCastWayPoolImpl.java
  poolsImpl.TypeCastWayPoolImpl
-poolsImpl/GlobalStatePoolImpl.java
- poolsImpl.GlobalStatePoolImpl
+utils/PoolBucket.java
+ utils.PoolBucket
 Main.java
  Main
+utils/PoolsOrchestrator.java
+ utils.PoolsOrchestrator
+poolsImpl/GlobalStatePoolImpl.java
+ poolsImpl.GlobalStatePoolImpl

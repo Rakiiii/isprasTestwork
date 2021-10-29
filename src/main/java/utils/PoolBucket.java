@@ -1,6 +1,10 @@
 package utils;
 
+import interfaces.IPool;
+
+import java.lang.ref.WeakReference;
 import java.math.BigInteger;
+import java.util.LinkedList;
 
 /**
  * Представление воды в сети бассейнов соеденненых каналами
@@ -22,8 +26,22 @@ public class PoolBucket {
      */
     private long amountOfPools = 1;
 
+    private final LinkedList<WeakReference<IPool>> poolList = new LinkedList<>();
+
+    public LinkedList<WeakReference<IPool>> getPoolList() {
+        return poolList;
+    }
+
     public PoolBucket(long water) {
         amountOfWater = water;
+    }
+
+    public void addPool(IPool pool) {
+        poolList.add(new WeakReference<>(pool));
+    }
+
+    public int sizeOfPoolList() {
+        return poolList.size();
     }
 
     /**
