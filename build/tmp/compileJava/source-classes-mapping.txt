@@ -1,14 +1,24 @@
-interfaces/IPool.java
- interfaces.IPool
+poolsImpl/ConnectAndAddHighPerfomancePoolImpl.java
+ poolsImpl.ConnectAndAddHighPerfomancePoolImpl
 interfaces/IPoolFactory.java
  interfaces.IPoolFactory
 cases/CaseClass.java
  cases.CaseClass
-Main.java
- Main
-poolsImpl/MeasureHighPerformancePoolImpl.java
- poolsImpl.MeasureHighPerformancePoolImpl
-poolsImpl/ConnectAndAddHighPerfomancePoolImpl.java
- poolsImpl.ConnectAndAddHighPerfomancePoolImpl
+interfaces/IPool.java
+ interfaces.IPool
+poolsImpl/FullGraphPoolImpl.java
+ poolsImpl.FullGraphPoolImpl
 factory/PoolFactoryImpl.java
  factory.PoolFactoryImpl
+poolsImpl/InversedMasterPoolImpl.java
+ poolsImpl.InversedMasterPoolImpl
+utils/PoolBucket.java
+ utils.PoolBucket
+utils/PoolsOrchestrator.java
+ utils.PoolsOrchestrator
+poolsImpl/TypeCastWayPoolImpl.java
+ poolsImpl.TypeCastWayPoolImpl
+poolsImpl/GlobalStatePoolImpl.java
+ poolsImpl.GlobalStatePoolImpl
+Main.java
+ Main

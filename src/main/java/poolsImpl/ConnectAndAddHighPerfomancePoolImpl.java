@@ -74,8 +74,10 @@ public class ConnectAndAddHighPerfomancePoolImpl implements IPool {
         final boolean isConnected =
                 //елси пользователь вызвал присоедение с master бассейном то это true
                 pool.isConnected(this) ||
+                        (masterPool != null &&
                         //если пользователь вызвал соединение не с master бассейном то это true
-                        connectedPools.stream().anyMatch(pool::isConnected);
+                        connectedPools.stream().anyMatch(pool::isConnected)
+                );
 
         if(masterPool == null && !isConnected && !isInDomination) {
             //секция 1: вызывается при добавлении новой сети пользователем
@@ -206,7 +208,8 @@ public class ConnectAndAddHighPerfomancePoolImpl implements IPool {
      * @inheritDoc
      */
     @Override
-    public boolean isConnected(IPool pool) {
+    public Boolean isConnected(IPool pool) {
+        //++isConnectCount;
         return pool == masterPool || ((masterPool == null ) ? connectedPools.contains(pool) : masterPool.isConnected(pool)) ;
     }
 }

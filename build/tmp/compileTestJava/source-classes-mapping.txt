@@ -1,6 +1,12 @@
-pooolsImpl/MeasureHighPerformancePoolImplTest.java
- pooolsImpl.MeasureHighPerformancePoolImplTest
 factory/PoolFactoryImplTest.java
  factory.PoolFactoryImplTest
 pooolsImpl/ConnectAndAddHighPerfomancePoolImplTest.java
  pooolsImpl.ConnectAndAddHighPerfomancePoolImplTest
+pooolsImpl/FullGraphPoolImplTest.java
+ pooolsImpl.FullGraphPoolImplTest
+pooolsImpl/TypeCastWayPoolImplTest.java
+ pooolsImpl.TypeCastWayPoolImplTest
+pooolsImpl/InversedMasterPoolImplTest.java
+ pooolsImpl.InversedMasterPoolImplTest
+pooolsImpl/GlobalStatePoolImplTest.java
+ pooolsImpl.GlobalStatePoolImplTest

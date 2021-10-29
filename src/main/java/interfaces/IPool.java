@@ -33,5 +33,5 @@ public interface IPool {
      * @param pool бассейн для проверки на соединение
      * @return true если {@code pool} соеденен каналаом с {@code this}
      */
-    boolean isConnected(IPool pool);
+    Boolean isConnected(IPool pool);
 }

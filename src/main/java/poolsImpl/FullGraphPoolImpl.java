@@ -91,7 +91,7 @@ public final class FullGraphPoolImpl implements IPool {
      * @inheritDoc
      */
     @Override
-    public boolean isConnected(IPool pool) {
+    public Boolean isConnected(IPool pool) {
         return connectedPools.contains(pool);
     }
 
